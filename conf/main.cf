@@ -1,0 +1,24 @@
+
+# ============================================================================ #
+
+virtual_mailbox_base = /home/mail
+virtual_alias_maps = proxy:mysql:/etc/postfix/mysql_virtual_alias_maps.cf
+virtual_mailbox_domains = proxy:mysql:/etc/postfix/mysql_virtual_domains_maps.cf
+virtual_mailbox_maps = proxy:mysql:/etc/postfix/mysql_virtual_mailbox_maps.cf
+virtual_minimum_uid = 1024
+virtual_uid_maps = static:1024
+virtual_gid_maps = static:1024
+virtual_transport = dovecot
+dovecot_destination_recipient_limit = 1
+
+smtpd_sasl_auth_enable = yes
+smtpd_sasl_exceptions_networks = $mynetworks
+smtpd_sasl_security_options = noanonymous
+broken_sasl_auth_clients = yes
+smtpd_sasl_type = dovecot
+smtpd_sasl_path = private/auth
+
+smtp_use_tls = yes
+smtpd_use_tls = yes
+smtpd_tls_auth_only = yes
+smtpd_helo_required = yes
